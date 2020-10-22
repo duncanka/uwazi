@@ -4,7 +4,7 @@ import { provenanceTypes } from 'shared/provenanceTypes';
 export const emitSchemaTypes = true;
 
 export const objectIdSchema = {
-  oneOf: [{ type: 'string' }, { type: 'object' }],
+  oneOf: [{ type: 'string' }],
 };
 
 export const attachmentSchema = {
@@ -129,7 +129,9 @@ export const propertySchema = {
   requireContentForSelectFields: true,
   requireRelationTypeForRelationship: true,
   requireInheritPropertyForInheritingRelationship: true,
+  definitions: { objectIdSchema },
   properties: {
+    _id: objectIdSchema,
     id: { type: 'string' },
     label: { type: 'string', minLength: 1 },
     name: { type: 'string', minLength: 1 },
@@ -137,6 +139,7 @@ export const propertySchema = {
     type: { type: 'string', enum: Object.values(propertyTypes) },
     prioritySorting: { type: 'boolean' },
     content: { type: 'string' },
+    relationType: { type: 'string' },
     inherit: { type: 'boolean' },
     inheritProperty: { type: 'string', minLength: 1 },
     filter: { type: 'boolean' },

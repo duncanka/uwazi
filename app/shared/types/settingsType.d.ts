@@ -1,26 +1,45 @@
 /* eslint-disable */
 /**AUTO-GENERATED. RUN yarn emit-types to update.*/
 
-import {ObjectIdSchema, LanguagesListSchema, LatLonSchema} from 'shared/types/commonTypes';
+import { ObjectIdSchema, LanguagesListSchema, GeolocationSchema } from 'shared/types/commonTypes';
 
 export interface SettingsFilterSchema {
-  _id?: string;
+  _id?: ObjectIdSchema;
   id?: string;
   name?: string;
-  items?: any;
+  items?: unknown;
 }
+
+export interface SettingsSyncTemplateSchema {
+  properties: string[];
+  filter?: string;
+}
+
+export type SettingsSyncRelationtypesSchema = string[];
 
 export interface SettingsSyncSchema {
   url?: string;
   active?: boolean;
   username?: boolean;
   password?: boolean;
-  config?: any;
+  config?: {
+    templates?: {
+      [k: string]:
+        | (
+            | {
+                properties: string[];
+                filter?: string;
+              }
+            | string[]
+          )
+        | undefined;
+    };
+    relationTypes?: string[];
+  };
 }
 
 export interface SettingsLinkSchema {
-  _id?: string;
-  localID?: string;
+  _id?: ObjectIdSchema;
   title?: string;
   url?: string;
 }
@@ -40,10 +59,10 @@ export interface Settings {
   analyticsTrackingId?: string;
   matomoConfig?: string;
   dateFormat?: string;
-  custom?: any;
+  custom?: unknown;
   customCSS?: string;
   mapTilerKey?: string;
-  newNameGeneration?: boolean;
+  newNameGeneration?: true;
   sync?: SettingsSyncSchema;
   languages?: LanguagesListSchema;
   filters?: SettingsFilterSchema[];
@@ -53,7 +72,11 @@ export interface Settings {
     semanticSearch?: boolean;
     topicClassification?: boolean;
     favorites?: boolean;
-    [k: string]: any | undefined;
-  },
-  mapStartingPoint?: LatLonSchema[];
+    [k: string]: unknown | undefined;
+  };
+  mapStartingPoint?: {
+    label?: string;
+    lat: number;
+    lon: number;
+  }[];
 }
